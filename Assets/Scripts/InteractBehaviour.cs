@@ -80,7 +80,8 @@ public class InteractBehaviour : MonoBehaviour{
 	}
 
 	private void	EnableToolVisual(Tool toolType, bool enable = true){
-		EquipmentLibraryItem	equipmentLibraryItem = equipmentLibary.content.Where(elem => elem.itemData == equipment.equipedWeaponItem).First();
+		EquipmentLibraryItem	equipmentLibraryItem = equipmentLibary.content.Where(elem => elem.itemData == equipment.equipedWeaponItem).FirstOrDefault();
+
 		if (equipmentLibraryItem != null){
 			for (int i = 0; i < equipmentLibraryItem.elementsToDisable.Length; i++){
 				equipmentLibraryItem.elementsToDisable[i].SetActive(enable);

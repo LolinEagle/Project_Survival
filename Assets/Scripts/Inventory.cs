@@ -6,6 +6,7 @@ public class Inventory : MonoBehaviour{
 	[SerializeField] private Equipment			equipment;
 	[SerializeField] private ItemActionSystem	itemActionSystem;
 	[SerializeField] private CraftingSystem		craftingSystem;
+	[SerializeField] private BuildSystem		buildSystem;
 
 	[Header("Inventory Panel References")]
 	[SerializeField] private List<ItemInInventory>	content = new List<ItemInInventory>();
@@ -103,6 +104,7 @@ public class Inventory : MonoBehaviour{
 
 		equipment.UpdateEquipmentsDesequipButtons();
 		craftingSystem.UpdateDisplayedRecipes();
+		buildSystem.UpdateDisplayCosts();
 	}
 
 	public bool		IsFull(){
