@@ -6,6 +6,8 @@ public class Equipment : MonoBehaviour{
 	[SerializeField] private ItemActionSystem	itemActionSystem;
 	[SerializeField] private PlayerStats		playerStats;
 	[SerializeField] private EquipmentLibary	equipmentLibrary;
+	[SerializeField] private AudioSource		audioSource;
+	[SerializeField] private AudioClip			equipSound;
 
 	[Header("Equipment Image References")]
 	[SerializeField] private Image	headSlotImage;
@@ -72,6 +74,7 @@ public class Equipment : MonoBehaviour{
 			equipmentLibraryItem.itemPrefab.SetActive(true);
 			playerStats.currentArmorPoints += itemActionSystem.itemCurrentlySelected.armorPoint;
 			Inventory.instance.RemoveItem(itemActionSystem.itemCurrentlySelected);
+			audioSource.PlayOneShot(equipSound);
 		} else {
 			Debug.LogError("Equipment : " + itemActionSystem.itemCurrentlySelected.name + " non-existent");
 		}

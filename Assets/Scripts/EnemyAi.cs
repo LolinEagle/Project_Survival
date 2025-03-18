@@ -6,6 +6,8 @@ public class EnemyAi : MonoBehaviour{
 	[Header("Reference")]
 	[SerializeField] private NavMeshAgent	agent;
 	[SerializeField] private Animator		animator;
+	[SerializeField] private AudioSource	audioSource;
+
 	private Transform	player;
 	private PlayerStats	playerStats;
 
@@ -92,9 +94,8 @@ public class EnemyAi : MonoBehaviour{
 	IEnumerator		AttackPlayer(){
 		isAttacking = true;
 		agent.isStopped = true;
-
+		audioSource.Play();
 		animator.SetTrigger("Attack");
-
 		playerStats.TakeDamage(damageDealt);
 
 		yield return new WaitForSeconds(attackDelay);

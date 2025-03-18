@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class InteractBehaviour : MonoBehaviour{
 	[Header("References")]
@@ -9,10 +10,16 @@ public class InteractBehaviour : MonoBehaviour{
 	[SerializeField] private Inventory			inventory;
 	[SerializeField] private Equipment			equipment;
 	[SerializeField] private EquipmentLibary	equipmentLibary;
+	[SerializeField] private AudioSource		audioSource;
 
-	[Header("Visual")]
+	[Header("Tools Configuration")]
 	[SerializeField] private GameObject		pickaxeVisual;
 	[SerializeField] private GameObject		axeVisual;
+	[SerializeField] private AudioClip		pickaxeSound;
+	[SerializeField] private AudioClip		axeSound;
+
+	[Header("Other")]
+	[SerializeField] private AudioClip		pickupSound;
 
 	[HideInInspector] public bool isBusy = false;
 
@@ -70,6 +77,7 @@ public class InteractBehaviour : MonoBehaviour{
 
 	public void		AddItemToInventory(){
 		inventory.AddItem(currentItem.itemData);
+		audioSource.PlayOneShot(pickupSound);
 		Destroy(currentItem.gameObject);
 	}
 
@@ -92,10 +100,16 @@ public class InteractBehaviour : MonoBehaviour{
 		switch (toolType){
 			case Tool.Pickaxe:
 				pickaxeVisual.SetActive(enable);
+				audioSource.clip = pickaxeSound;
 				break;
 			case Tool.Axe:
 				axeVisual.SetActive(enable);
+				audioSource.clip = axeSound;
 				break;
 		}
+	}
+
+	public void		playHarvestingSound(){
+		audioSource.Play();
 	}
 }

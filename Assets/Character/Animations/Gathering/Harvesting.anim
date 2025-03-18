@@ -13969,7 +13969,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.5666667
+        time: 0.56666666
         value: -0.17990811
         inSlope: -1.6087055
         outSlope: -1.6087055
@@ -62359,7 +62359,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.5666667
+        time: 0.56666666
         value: -0.17990811
         inSlope: -1.6087055
         outSlope: -1.6087055
@@ -95603,6 +95603,13 @@ AnimationClip:
   m_Events:
   - time: 0.6333333
     functionName: BreakHarvestable
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.6333333
+    functionName: playHarvestingSound
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

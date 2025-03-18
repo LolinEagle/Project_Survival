@@ -8,6 +8,8 @@ public class BuildSystem : MonoBehaviour{
 	[SerializeField] private Material		blueMaterial;
 	[SerializeField] private Material		redMaterial;
 	[SerializeField] private Transform		rotationRef;
+	[SerializeField] private AudioSource	audioSource;
+	[SerializeField] private AudioClip		buildingSound;
 
 	[Header("UI References")]
 	[SerializeField] private Transform		buildingSystemUIPanel;
@@ -120,7 +122,7 @@ public class BuildSystem : MonoBehaviour{
 
 	void				BuildStructure(){
 		Instantiate(GetStructureByType(currentStructure.structureType).instantiatedPrefab, GetPlacementPrefab().transform.position, GetPlacementPrefab().transform.GetChild(0).transform.rotation);
-
+		audioSource.PlayOneShot(buildingSound);
 		for (int i = 0; i < currentStructure.ressourcesCost.Length; i++){
 			for (int j = 0; j < currentStructure.ressourcesCost[i].count; j++){
 				Inventory.instance.RemoveItem(currentStructure.ressourcesCost[i].itemData);
