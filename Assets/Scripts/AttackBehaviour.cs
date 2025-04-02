@@ -34,7 +34,7 @@ public class AttackBehaviour : MonoBehaviour{
 		}
 	}
 
-	bool CanAttack(){
+	bool		CanAttack(){
 		return (equipment.equipedWeaponItem != null && !isAttacking && !manager.isAPanelOpened && !interactBehaviour.isBusy);
 	}
 

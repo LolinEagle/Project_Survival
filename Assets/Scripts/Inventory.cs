@@ -86,14 +86,14 @@ public class Inventory : MonoBehaviour{
 
 	public void		RefreshContent(){
 		for (int i = 0; i < inventorySlotParent.childCount; i++){
-			Slot currentSlot = inventorySlotParent.GetChild(i).GetComponent<Slot>();
+			Slot	currentSlot = inventorySlotParent.GetChild(i).GetComponent<Slot>();
 			currentSlot.item = null;
 			currentSlot.itemVisual.sprite = emptySlotVisual;
 			currentSlot.countText.enabled = false;
 		}
 
 		for (int i = 0; i < content.Count; i++){
-			Slot currentSlot = inventorySlotParent.GetChild(i).GetComponent<Slot>();
+			Slot	currentSlot = inventorySlotParent.GetChild(i).GetComponent<Slot>();
 			currentSlot.item = content[i].itemData;
 			currentSlot.itemVisual.sprite = content[i].itemData.visual;
 			if (currentSlot.item.stackable){
@@ -109,6 +109,15 @@ public class Inventory : MonoBehaviour{
 
 	public bool		IsFull(){
 		return (InventorySize <= content.Count);
+	}
+
+	public void		LoadData(List<ItemInInventory> savedData){
+		content = savedData;
+		RefreshContent();
+	}
+
+	public void		ClearInventory(){
+		content.Clear();
 	}
 }
 

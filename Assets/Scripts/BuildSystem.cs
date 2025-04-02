@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class BuildSystem : MonoBehaviour{
 	[Header("Configuration")]
 	[SerializeField] private Grid			grid;
+	[SerializeField] private Transform		placedStructuresParent;
 	[SerializeField] private Structure[]	structures;
 	[SerializeField] private Material		blueMaterial;
 	[SerializeField] private Material		redMaterial;
@@ -20,6 +23,8 @@ public class BuildSystem : MonoBehaviour{
 	private bool		inPlace;
 	private Vector3		finalPosition;
 	private bool		systemEnabled = false;
+
+	public List<PlacedStructure>	placedStructures;
 
 	void				Awake(){
 		currentStructure = structures.First();
@@ -121,7 +126,17 @@ public class BuildSystem : MonoBehaviour{
 	}
 
 	void				BuildStructure(){
-		Instantiate(GetStructureByType(currentStructure.structureType).instantiatedPrefab, GetPlacementPrefab().transform.position, GetPlacementPrefab().transform.GetChild(0).transform.rotation);
+		Instantiate(
+			GetStructureByType(currentStructure.structureType).instantiatedPrefab,
+			GetPlacementPrefab().transform.position,
+			GetPlacementPrefab().transform.GetChild(0).transform.rotation,
+			placedStructuresParent
+		);
+		placedStructures.Add(new PlacedStructure {
+			placementPrefab = currentStructure.instantiatedPrefab,
+			pos = GetPlacementPrefab().transform.position,
+			rot = GetPlacementPrefab().transform.GetChild(0).transform.rotation.eulerAngles
+		});
 		audioSource.PlayOneShot(buildingSound);
 		for (int i = 0; i < currentStructure.ressourcesCost.Length; i++){
 			for (int j = 0; j < currentStructure.ressourcesCost[i].count; j++){
@@ -175,6 +190,15 @@ public class BuildSystem : MonoBehaviour{
 			requiredElement.GetComponent<BuildingRequiredElement>().Setup(requiredRessource);
 		}
 	}
+
+	public void			LoadStructures(PlacedStructure[] structureToLoad){
+		foreach (PlacedStructure structure in structureToLoad){
+			placedStructures.Add(structure);
+			GameObject	newStructure = Instantiate(structure.placementPrefab, placedStructuresParent);
+			newStructure.transform.position = structure.pos;
+			newStructure.transform.rotation = Quaternion.Euler(structure.rot);
+		}
+	}
 }
 
 [System.Serializable]
@@ -189,4 +213,11 @@ public enum StructureType{
 	Stairs,
 	Wall,
 	Floor
+}
+
+[System.Serializable]
+public class PlacedStructure{
+	public GameObject	placementPrefab;
+	public Vector3		pos;
+	public Vector3		rot;
 }

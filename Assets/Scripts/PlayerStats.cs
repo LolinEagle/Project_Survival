@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,7 +40,7 @@ public class PlayerStats : MonoBehaviour{
 		}
 	}
 
-	private void Die(){
+	private void	Die(){
 		isDead = true;
 		playerMovementScript.canMove = false;
 		hungerDecreaseRate = 0;
@@ -49,7 +48,7 @@ public class PlayerStats : MonoBehaviour{
 		animator.SetTrigger("Die");
 	}
 
-	public void TakeDamage(float damage, bool overtime = false){
+	public void		TakeDamage(float damage, bool overtime = false){
 		if (overtime) {
 			currentHealth -= damage * Time.deltaTime;
 		} else {
@@ -62,11 +61,11 @@ public class PlayerStats : MonoBehaviour{
 		}
 	}
 
-	void UpdateHealthBarFill(){
+	public void		UpdateHealthBarFill(){
 		BarFillHealth.fillAmount = currentHealth / maxHealth;
 	}
 
-	void UpdateBarFill(){
+	void			UpdateBarFill(){
 		currentHunger -= hungerDecreaseRate * Time.deltaTime;
 		currentThirs -= thirsDecreaseRate * Time.deltaTime;
 		currentHunger = currentHunger < 0 ? 0 : currentHunger;
@@ -79,7 +78,7 @@ public class PlayerStats : MonoBehaviour{
 		}
 	}
 
-	public void Consumeitem(float health, float hunger, float thirs){
+	public void		Consumeitem(float health, float hunger, float thirs){
 		currentHealth += health;
 		if (currentHealth > maxHealth){
 			currentHealth = maxHealth;
