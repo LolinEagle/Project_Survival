@@ -7,6 +7,8 @@ public class SaveSystem : MonoBehaviour{
 	[SerializeField] private Equipment		equipment;
 	[SerializeField] private PlayerStats	playerStats;
 	[SerializeField] private BuildSystem	buildSystem;
+	[SerializeField] private MainMenu		mainMenu;
+	[SerializeField] private PauseMenu		pauseMenu;
 
 	private string	filePath;
 
@@ -24,7 +26,7 @@ public class SaveSystem : MonoBehaviour{
 		}
 	}
 
-	void	SaveData(){
+	public void	SaveData(){
 		// Save all the data
 		SavedData	savedData = new SavedData{
 			playerPosition = playerTransform.position,
@@ -47,12 +49,12 @@ public class SaveSystem : MonoBehaviour{
 		
 		// Write save data in to file
 		filePath = Application.persistentDataPath + "/SavedData.json";
-		Debug.Log(filePath);
 		System.IO.File.WriteAllText(filePath, jsonData);
-		Debug.Log("Save done");
+		mainMenu.loadGameButton.interactable = true;
+		mainMenu.clearSaveButton.interactable = true;
 	}
 
-	void    LoadData(){
+	public void    LoadData(){
 		// Recover all the data
 		filePath = Application.persistentDataPath + "/SavedData.json";
 		string		jsonData = System.IO.File.ReadAllText(filePath);
@@ -74,7 +76,8 @@ public class SaveSystem : MonoBehaviour{
 		playerStats.currentThirs = savedData.currentThirs;
 		playerStats.UpdateHealthBarFill();
 		buildSystem.LoadStructures(savedData.placedStructures);
-		Debug.Log("Load done");
+
+		pauseMenu.ClosePauseMenu();
 	}
 }
 
