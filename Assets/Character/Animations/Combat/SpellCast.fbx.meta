@@ -1101,3 +1101,10 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 219979
+  packageName: FREE Low Poly Human - RPG Character
+  packageVersion: 
+  assetPath: Assets/Character/Animations/Combat/SpellCast.fbx
+  uploadId: 0
