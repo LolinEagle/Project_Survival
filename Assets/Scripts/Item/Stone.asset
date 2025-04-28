@@ -17,6 +17,11 @@ MonoBehaviour:
   visual: {fileID: 21300000, guid: f7111abcf951a1f4398426869d06640b, type: 3}
   prefab: {fileID: 3495160549717233265, guid: 2caee51cc23b8c847b3669d0f38d3b67, type: 3}
   stackable: 1
-  maxStack: 3
+  maxStack: 100
+  healthEffect: 0
+  hungerEffect: 0
+  thirsEffect: 0
+  armorPoint: 0
+  attackPoints: 0
   itemType: 0
   equipmentType: 0

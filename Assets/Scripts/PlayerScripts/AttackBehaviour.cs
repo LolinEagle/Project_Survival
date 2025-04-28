@@ -6,6 +6,7 @@ public class AttackBehaviour : MonoBehaviour{
 	[SerializeField] private Equipment			equipment;
 	[SerializeField] private UIManager			manager;
 	[SerializeField] private InteractBehaviour	interactBehaviour;
+	[SerializeField] private PlayerStats		playerStats;
 
 	[Header("Configuration")]
 	[SerializeField] private float		attackRange;
@@ -35,7 +36,7 @@ public class AttackBehaviour : MonoBehaviour{
 	}
 
 	bool		CanAttack(){
-		return (equipment.equipedWeaponItem != null && !isAttacking && !manager.isAPanelOpened && !interactBehaviour.isBusy);
+		return (equipment.equipedWeaponItem != null && !isAttacking && !manager.isAPanelOpened && !interactBehaviour.isBusy && !playerStats.isDead);
 	}
 
 	public void	AttackEnd(){

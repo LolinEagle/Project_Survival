@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 
 public class BuildSystem : MonoBehaviour{
 	[Header("Configuration")]
-	[SerializeField] private Grid			grid;
+	[SerializeField] private BuildingGrid	grid;
 	[SerializeField] private Transform		placedStructuresParent;
 	[SerializeField] private Structure[]	structures;
 	[SerializeField] private Material		blueMaterial;

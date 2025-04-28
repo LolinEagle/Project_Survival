@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Grid : MonoBehaviour{
+public class BuildingGrid : MonoBehaviour{
 	[SerializeField] private float	sizeX;
 	[SerializeField] private float	sizeY;
 	[SerializeField] private float	sizeZ;
