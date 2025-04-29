@@ -33,11 +33,6 @@ public class PlayerStats : MonoBehaviour{
 
 	void Update(){
 		UpdateBarFill();
-
-		// Debug
-		if (Input.GetKeyDown(KeyCode.K)){
-			TakeDamage(50f);
-		}
 	}
 
 	private void	Die(){

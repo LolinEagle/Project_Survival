@@ -116,6 +116,7 @@ MonoBehaviour:
   itemCost: {fileID: 2251117449618175431}
   greenColor: {r: 0, g: 1, b: 0, a: 1}
   redColor: {r: 1, g: 0, b: 0, a: 1}
+  hasRessources: 0
 --- !u!1 &402143032312003735
 GameObject:
   m_ObjectHideFlags: 0

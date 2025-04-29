@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class BuildSystem : MonoBehaviour{
 	[Header("Configuration")]
@@ -119,7 +118,6 @@ public class BuildSystem : MonoBehaviour{
 	}
 	
 	bool				HasAllRessources(){
-		/*BuildingRequiredElement[]	requiredElements = GameObject.FindObjectsOfType<BuildingRequiredElement>();*/
 		BuildingRequiredElement[]	requiredElements = GameObject.FindObjectsByType<BuildingRequiredElement>(FindObjectsSortMode.None);
 
 		return (requiredElements.All(requiredElements => requiredElements.hasRessources));

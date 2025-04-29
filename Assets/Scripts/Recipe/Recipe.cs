@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +14,7 @@ public class Recipe : MonoBehaviour{
 	[SerializeField] private Color		missingColor;
 	[SerializeField] private Color		availableColor;
 
-	public void Configure(RecipeData recipe){
+	public void	Configure(RecipeData recipe){
 		bool	canCraft = true;
 
 		currentRecipe = recipe;
@@ -42,6 +41,9 @@ public class Recipe : MonoBehaviour{
 			}
 			elementRequired.elementImage.sprite = recipe.requiredItems[i].itemData.visual;
 			elementRequired.elementCountText.text = recipe.requiredItems[i].count.ToString();
+		}
+		if (Inventory.instance.IsFull()){
+			canCraft = false;
 		}
 		craftButton.image.sprite = canCraft ? canbuildIcon : cantbuildIcon;
 		craftButton.enabled = canCraft;
