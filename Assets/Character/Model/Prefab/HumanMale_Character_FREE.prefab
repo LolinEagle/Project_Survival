@@ -1271,7 +1271,8 @@ MonoBehaviour:
   equipment: {fileID: 0}
   manager: {fileID: 0}
   interactBehaviour: {fileID: 6283587075044529848}
-  attackRange: 2.2
+  playerStats: {fileID: 8148169552800438552}
+  attackRange: 3
   layerMask:
     serializedVersion: 2
     m_Bits: 256

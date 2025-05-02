@@ -16,7 +16,7 @@ public class AttackBehaviour : MonoBehaviour{
 	private bool	isAttacking;
 
 	void		Update(){
-		// Debug.DrawRay(transform.position + attackOffset, transform.forward * attackRange, Color.red);
+		Debug.DrawRay(transform.position + attackOffset, transform.forward * attackRange, Color.red);
 		if (Input.GetMouseButtonDown(0) && CanAttack()){
 			isAttacking = true;
 			SendAttack();

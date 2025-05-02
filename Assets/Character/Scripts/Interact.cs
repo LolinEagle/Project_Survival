@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class Interact : MonoBehaviour{
-	[SerializeField] private float		interactRange = 2.6f;
+	[SerializeField] private float		interactRange;
 	[SerializeField] private GameObject	interactText;
 	[SerializeField] private LayerMask	layerMask;
 

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5a992e2f191e9641b62d35c5cb4489a, type: 3}
-  m_Name: IronHelmetRecipe
+  m_Name: IronChestRecipe
   m_EditorClassIdentifier: 
-  craftableItem: {fileID: 11400000, guid: 1430885555fe44c4794caf672bb23cd3, type: 2}
+  craftableItem: {fileID: 11400000, guid: 8d5b097ac4fda6b48af806396a456ac5, type: 2}
   requiredItems:
   - itemData: {fileID: 11400000, guid: 3241b416110c62141813ed3cd30b24d8, type: 2}
-    count: 5
+    count: 8
