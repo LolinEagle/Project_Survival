@@ -6221,6 +6221,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8333726044818501060, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8333726044818501060, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: attackOffset.y
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15010,6 +15018,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 806986665173119675, guid: b6452e49f0b19ae418e4bae43472d652, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2584818204904210935, guid: b6452e49f0b19ae418e4bae43472d652, type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3691747970874483094, guid: b6452e49f0b19ae418e4bae43472d652, type: 3}

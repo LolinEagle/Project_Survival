@@ -61,12 +61,11 @@ public class EnemyAi : MonoBehaviour{
 	}
 
 	public void		TakeDammge(float damages){
-		Debug.Log(damages);
+		// Debug.Log("TakeDammge : " + damages);
 		if (isDead){
 			return ;
 		}
 		currentHealth -= damages;
-		Debug.Log(currentHealth);
 		if (currentHealth <= 0){
 			isDead = true;
 			animator.SetTrigger("Die");
