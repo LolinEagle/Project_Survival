@@ -170,6 +170,11 @@ MonoBehaviour:
   mapWidth: 20
   mapHeight: 20
   noiseScale: 0.3
+  octaves: 4
+  persistance: 0.5
+  lacunarity: 5
+  seed: 0
+  offset: {x: 0, y: 0}
   autoUpdate: 1
 --- !u!4 &30063564
 Transform:
