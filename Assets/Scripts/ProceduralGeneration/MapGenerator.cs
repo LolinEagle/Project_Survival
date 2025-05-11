@@ -7,24 +7,21 @@ public class MapGenerator : MonoBehaviour{
 		Mesh
 	}
 
-	public DrawMode	drawMode;
+	public DrawMode				drawMode;
+	public const int			mapChunkSize = 241;
+	[Range(0, 6)] public int	levelOfDetail;
+	public float				noiseScale;
+	public int					octaves;
+	[Range(0, 1)] public float	persistance;
+	public float				lacunarity;
+	public int					seed;
+	public Vector2				offset;
+	public float				meshHeightMultiplier;
+	public AnimationCurve		meshHeightCurve;
+	public TerrainType[]		regions;
 
-	const int		mapChunkSize = 241;
-	[Range(0, 6)]
-	public int		levelOfDetail;
-	public float	noiseScale;
-	public int		octaves;
-	[Range(0, 1)]
-	public float	persistance;
-	public float	lacunarity;
-	public int		seed;
-	public Vector2	offset;
-	public float	meshHeightMultiplier;
-	public AnimationCurve	meshHeightCurve;
-
-	public bool		autoUpdate;
-
-	public TerrainType[]	regions;
+	// Debug
+	public bool	autoUpdate;
 
 	public void	GenerateMap(){
 		float[,]	noiseMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, noiseScale, octaves, persistance, lacunarity, offset);
