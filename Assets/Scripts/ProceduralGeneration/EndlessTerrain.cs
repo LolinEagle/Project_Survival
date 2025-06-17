@@ -1,13 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class EndlessTerrain : MonoBehaviour{
 	const float             scale = 1f;
 
 	const float             viwerMoveThresholdForChunkUpdate = 25f;
-	const float             sqrViwerMoveThresholdForChunkUpdate = viwerMoveThresholdForChunkUpdate * viwerMoveThresholdForChunkUpdate;
+	const float             sqrViewerMoveThresholdForChunkUpdate = viwerMoveThresholdForChunkUpdate * viwerMoveThresholdForChunkUpdate;
 
 	public LODInfo[]		detailLevels;
 	public static float		maxViewDist;
@@ -30,18 +28,19 @@ public class EndlessTerrain : MonoBehaviour{
 		chunkSize = MapGenerator.mapChunkSize - 1;
 		chunksVisibleInViewDist = Mathf.RoundToInt(maxViewDist / chunkSize);
 
-		UpdateVisibleChunk();
+		UpdateVisibleChunks();
 	}
 
 	private void	Update(){
-		viewerPos = new Vector2(viewer.position.x, viewer.position.z) / 2;
-		if ((oldViewerPos - viewerPos).sqrMagnitude > sqrViwerMoveThresholdForChunkUpdate){
+		viewerPos = new Vector2(viewer.position.x, viewer.position.z);
+
+		if((oldViewerPos - viewerPos).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate){
 			oldViewerPos = viewerPos;
-			UpdateVisibleChunk();
+			UpdateVisibleChunks();
 		}
 	}
 
-	void	UpdateVisibleChunk(){
+	void	UpdateVisibleChunks(){
 		for (int i = 0; i < terrainChunkVisibleLastUpdate.Count; i++){
 			terrainChunkVisibleLastUpdate[i].SetVisible(false);
 		}
@@ -148,6 +147,7 @@ public class EndlessTerrain : MonoBehaviour{
 					if (lodMesh.hasMesh){
 						previousLODIndex = lodIndex;
 						meshFilter.mesh = lodMesh.mesh;
+						meshCollider.sharedMesh = lodMesh.mesh;
 					} else if (!lodMesh.hasRequestedMesh){
 						lodMesh.RequestMesh(mapData);
 					}
