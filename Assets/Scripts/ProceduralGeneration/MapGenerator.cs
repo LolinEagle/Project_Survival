@@ -7,8 +7,8 @@ public class MapGenerator : MonoBehaviour{
 	public enum DrawMode{
 		NoiseMap,
 		ColourMap,
-		Mesh,
 		FalloffMap,
+		Mesh,
 	}
 
 	public DrawMode				drawMode;
