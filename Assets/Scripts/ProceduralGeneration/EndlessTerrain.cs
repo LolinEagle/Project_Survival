@@ -18,7 +18,7 @@ public class EndlessTerrain : MonoBehaviour{
 	static int				chunkSize;
 	int						chunksVisibleInViewDist;
 
-	public PrefabType[]		prefabs;
+	public PrefabType		prefabType;
 
 	Dictionary<Vector2, TerrainChunk>	terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
 	static List<TerrainChunk>			terrainChunkVisibleLastUpdate = new List<TerrainChunk>();
@@ -59,7 +59,7 @@ public class EndlessTerrain : MonoBehaviour{
 					terrainChunkDictionary[viewedChunkCoord].UpdateTerrainChunk();
 
 				} else {
-					terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, prefabs));
+					terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, prefabType));
 				}
 			}
 		}
@@ -82,11 +82,11 @@ public class EndlessTerrain : MonoBehaviour{
 		bool			mapDataReceived;
 		int				previousLODIndex = -1;
 
-		PrefabType[]	prefabs;
+		PrefabType		prefabType;
 
-		public		TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, PrefabType[] prefabs){
+		public		TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, PrefabType prefabType){
 			this.detailLevels = detailLevels;
-			this.prefabs = prefabs;
+			this.prefabType = prefabType;
 
 			position = coord * size;
 			bounds = new Bounds(position, Vector2.one * size);
@@ -118,17 +118,22 @@ public class EndlessTerrain : MonoBehaviour{
 		void		OnMapDataReceived(MapData mapData){
 			this.mapData = mapData;
 			mapDataReceived = true;
+			meshRenderer.material.mainTexture = TextureGenerator.TextureFromColourMap(mapData.colourMap, MapGenerator.mapChunkSize, MapGenerator.mapChunkSize);
 
-			Texture2D texture = TextureGenerator.TextureFromColourMap(mapData.colourMap, MapGenerator.mapChunkSize, MapGenerator.mapChunkSize);
-			meshRenderer.material.mainTexture = texture;
+			Random.InitState(mapGenerator.seed + (int)position.x + (int)position.y);
+			for (int i = 0; i < prefabType.numberToSpawn; i++){
+				int rX = Random.Range(0, chunkSize);
+				int rY = Random.Range(0, chunkSize);
+				int centerX = 1 + rX;
+				int centerY = mapData.heightMap.GetLength(1) - 2 - rY;
 
-			int centerX = mapData.heightMap.GetLength(0) / 2;
-			int centerY = mapData.heightMap.GetLength(1) / 2;
-
-			if (mapData.heightMap[centerX, centerY] < 0.8){
-				float	height = mapData.heightMap[centerX, centerY] * mapGenerator.meshHeightMultiplier * mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[centerX, centerY]);
-				Vector3	centerPos = new Vector3(position.x, height, position.y);
-				Instantiate(prefabs[0].prefab, centerPos, Quaternion.identity, meshObject.transform);
+				float	height = mapGenerator.meshHeightMultiplier * mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[centerX, centerY]);
+				Vector3	centerPos = new Vector3((position.x - chunkSize / 2f) + rX, height, (position.y - chunkSize / 2f) + rY);
+				if (mapData.heightMap[centerX, centerY] < prefabType.item[0].height){
+					Instantiate(prefabType.item[0].prefab, centerPos, Quaternion.identity, meshObject.transform);
+				} else if (mapData.heightMap[centerX, centerY] < prefabType.item[1].height){
+					Instantiate(prefabType.item[1].prefab, centerPos, Quaternion.identity, meshObject.transform);
+				}
 			}
 
 			UpdateTerrainChunk();
@@ -222,6 +227,13 @@ public class EndlessTerrain : MonoBehaviour{
 
 	[System.Serializable]
 	public struct PrefabType{
-		public GameObject	prefab;
+		[System.Serializable]
+		public struct PrefabTypeItem{
+			public GameObject	prefab;
+			public float		height;
+		};
+
+		public PrefabTypeItem[]	item;
+		public int				numberToSpawn;
 	}
 }
