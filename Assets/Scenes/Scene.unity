@@ -305,8 +305,16 @@ MonoBehaviour:
     item:
     - prefab: {fileID: 136328, guid: 613b4cc8c589ad8458e792ae21891bef, type: 3}
       height: 0.8
+      yOffset: 0
+      alignToTerrain: 0
     - prefab: {fileID: 1551547496685501196, guid: 849a5190185df9748a5e6de282d461b4, type: 3}
-      height: 1.3
+      height: 1.2
+      yOffset: 0
+      alignToTerrain: 1
+    - prefab: {fileID: 3691747970874483094, guid: b6452e49f0b19ae418e4bae43472d652, type: 3}
+      height: 1.2
+      yOffset: 0
+      alignToTerrain: 0
     numberToSpawn: 8
 --- !u!4 &33427810 stripped
 Transform:

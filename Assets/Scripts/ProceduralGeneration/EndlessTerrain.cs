@@ -121,21 +121,22 @@ public class EndlessTerrain : MonoBehaviour{
 			meshRenderer.material.mainTexture = TextureGenerator.TextureFromColourMap(mapData.colourMap, MapGenerator.mapChunkSize, MapGenerator.mapChunkSize);
 
 			Random.InitState(mapGenerator.seed + (int)position.x + (int)position.y);
-			for (int i = 0; i < prefabType.numberToSpawn; i++){
-				int rX = Random.Range(0, chunkSize);
-				int rY = Random.Range(0, chunkSize);
-				int centerX = 1 + rX;
-				int centerY = mapData.heightMap.GetLength(1) - 2 - rY;
+			for (int n = 0; n < prefabType.numberToSpawn; n++){
+				int	rX = Random.Range(0, chunkSize);
+				int	rY = Random.Range(0, chunkSize);
+				int	centerX = 1 + rX;
+				int	centerY = mapData.heightMap.GetLength(1) - 2 - rY;
 
-				float	height = mapGenerator.meshHeightMultiplier * mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[centerX, centerY]);
-				Vector3	centerPos = new Vector3((position.x - chunkSize / 2f) + rX, height, (position.y - chunkSize / 2f) + rY);
-				if (mapData.heightMap[centerX, centerY] < prefabType.item[0].height){
-					Instantiate(prefabType.item[0].prefab, centerPos, Quaternion.identity, meshObject.transform);
-				} else if (mapData.heightMap[centerX, centerY] < prefabType.item[1].height){
-					Instantiate(prefabType.item[1].prefab, centerPos, Quaternion.identity, meshObject.transform);
+				for (int i = 0; i < prefabType.item.Length; i++){
+					if (mapData.heightMap[centerX, centerY] < prefabType.item[i].height){
+						float	height = mapGenerator.meshHeightMultiplier * mapGenerator.meshHeightCurve.Evaluate(mapData.heightMap[centerX, centerY]);
+						Vector3	centerPos = new Vector3((position.x - chunkSize / 2f) + rX, height - prefabType.item[i].yOffset, (position.y - chunkSize / 2f) + rY);
+
+						Instantiate(prefabType.item[i].prefab, centerPos, Quaternion.identity, meshObject.transform);
+						break;
+					}
 				}
 			}
-
 			UpdateTerrainChunk();
 		}
 
@@ -231,6 +232,7 @@ public class EndlessTerrain : MonoBehaviour{
 		public struct PrefabTypeItem{
 			public GameObject	prefab;
 			public float		height;
+			public float		yOffset;
 		};
 
 		public PrefabTypeItem[]	item;
