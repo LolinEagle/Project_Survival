@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EndlessTerrain : MonoBehaviour{
-	const float             scale = 1f;
+	const float				scale = 1f;
 
-	const float             viwerMoveThresholdForChunkUpdate = 25f;
-	const float             sqrViewerMoveThresholdForChunkUpdate = viwerMoveThresholdForChunkUpdate * viwerMoveThresholdForChunkUpdate;
+	const float				viwerMoveThresholdForChunkUpdate = 25f;
+	const float				sqrViewerMoveThresholdForChunkUpdate = viwerMoveThresholdForChunkUpdate * viwerMoveThresholdForChunkUpdate;
 
 	public LODInfo[]		detailLevels;
 	public static float		maxViewDist;
@@ -36,7 +36,7 @@ public class EndlessTerrain : MonoBehaviour{
 	private void	Update(){
 		viewerPos = new Vector2(viewer.position.x, viewer.position.z);
 
-		if((oldViewerPos - viewerPos).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate){
+		if ((oldViewerPos - viewerPos).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate){
 			oldViewerPos = viewerPos;
 			UpdateVisibleChunks();
 		}
@@ -145,9 +145,8 @@ public class EndlessTerrain : MonoBehaviour{
 		}
 
 		public void	UpdateTerrainChunk(){
-			if (!mapDataReceived){
-				return;
-			}
+			if (!mapDataReceived) return;
+
 			float	viewerDstFromNearestEdge = Mathf.Sqrt(bounds.SqrDistance(viewerPos));
 			bool	visible = viewerDstFromNearestEdge <= maxViewDist;
 
