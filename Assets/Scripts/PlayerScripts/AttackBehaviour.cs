@@ -30,7 +30,7 @@ public class AttackBehaviour : MonoBehaviour{
 		if (Physics.Raycast(transform.position + attackOffset, transform.forward, out hit, attackRange, layerMask)){
 			if (hit.transform.CompareTag("Ai")){
 				EnemyAi enemy = hit.transform.GetComponent<EnemyAi>();
-				enemy.TakeDammge(equipment.equipedWeaponItem.attackPoints);
+				enemy.TakeDamage(equipment.equipedWeaponItem.attackPoints);
 			}
 		}
 	}

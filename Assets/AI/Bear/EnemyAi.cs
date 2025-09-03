@@ -28,12 +28,13 @@ public class EnemyAi : MonoBehaviour{
 	[SerializeField] private float	wanderingDistanceMin;
 	[SerializeField] private float	wanderingDistanceMax;
 
-	private bool	hasDestinasion;
+	private bool	hasDestination;
 	private bool	isAttacking;
 	private bool	isDead;
 
 	private void	Awake(){
 		Transform	playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
 		player = playerTransform;
 		playerStats = playerTransform.GetComponent<PlayerStats>();
 		currentHealth = maxHealth;
@@ -53,18 +54,16 @@ public class EnemyAi : MonoBehaviour{
 			}
 		} else {
 			agent.speed = walkSpeed;
-			if (agent.remainingDistance < 0.75f && !hasDestinasion){
+			if (agent.remainingDistance < 0.75f && !hasDestination){
 				StartCoroutine(GetNewDestinasion());
 			}
 		}
 		animator.SetFloat("Speed", agent.velocity.magnitude);
 	}
 
-	public void		TakeDammge(float damages){
-		// Debug.Log("TakeDammge : " + damages);
-		if (isDead){
-			return ;
-		}
+	public void		TakeDamage(float damages){
+		if (isDead) return;
+
 		currentHealth -= damages;
 		if (currentHealth <= 0){
 			isDead = true;
@@ -77,7 +76,7 @@ public class EnemyAi : MonoBehaviour{
 	}
 
 	IEnumerator		GetNewDestinasion(){
-		hasDestinasion = true;
+		hasDestination = true;
 		yield return new WaitForSeconds(Random.Range(wanderingWaitTimeMin, wanderingWaitTimeMax));
 
 		Vector3 nextDestination = transform.position;
@@ -87,7 +86,7 @@ public class EnemyAi : MonoBehaviour{
 		if (NavMesh.SamplePosition(nextDestination, out hit, wanderingDistanceMax, NavMesh.AllAreas)){
 			agent.SetDestination(hit.position);
 		}
-		hasDestinasion = false;
+		hasDestination = false;
 	}
 
 	IEnumerator		AttackPlayer(){

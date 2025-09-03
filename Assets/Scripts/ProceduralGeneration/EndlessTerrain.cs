@@ -106,6 +106,8 @@ public class EndlessTerrain : MonoBehaviour{
 			meshRenderer = meshObject.AddComponent<MeshRenderer>();
 			meshFilter = meshObject.AddComponent<MeshFilter>();
 			meshCollider = meshObject.AddComponent<MeshCollider>();
+			navSurface = meshObject.AddComponent<NavMeshSurface>();
+			navSurface.collectObjects = CollectObjects.Children;// Collect only this chunk’s children. The collider/mesh you assign below will be included.
 			meshRenderer.material = material;
 
 			meshObject.transform.position = positionV3 * scale;
@@ -122,9 +124,6 @@ public class EndlessTerrain : MonoBehaviour{
 			}
 
 			mapGenerator.RequestMapData(position, OnMapDataReceived);
-
-			navSurface = meshObject.AddComponent<NavMeshSurface>();
-			navSurface.collectObjects = CollectObjects.Children;// Collect only this chunk’s children. The collider/mesh you assign below will be included.
 		}
 
 		void		OnMapDataReceived(MapData mapData){
@@ -162,7 +161,7 @@ public class EndlessTerrain : MonoBehaviour{
 			return new Bounds(meshObject.transform.position + new Vector3(0, size.y * 0.5f, 0), size);
 		}
 
-		async void	BuildOrUpdateNavmeshAsync(){
+		void		BuildOrUpdateNavmeshAsync(){
 			var	sources = new List<NavMeshBuildSource>();
 			// Collect from render meshes in this chunk only
 			NavMeshBuilder.CollectSources(
@@ -175,6 +174,7 @@ public class EndlessTerrain : MonoBehaviour{
 			);
 
 			var	settings = NavMesh.GetSettingsByID(0);
+			settings.agentSlope = 90f;
 			var	worldBounds = GetLocalBounds();
 
 			if (!navDataAdded){
