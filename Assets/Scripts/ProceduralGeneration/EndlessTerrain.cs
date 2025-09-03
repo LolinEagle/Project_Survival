@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using Unity.AI.Navigation;
 
 public class EndlessTerrain : MonoBehaviour{
 	const float				scale = 1f;
@@ -42,7 +44,7 @@ public class EndlessTerrain : MonoBehaviour{
 		}
 	}
 
-	void	UpdateVisibleChunks(){
+	void			UpdateVisibleChunks(){
 		for (int i = 0; i < terrainChunkVisibleLastUpdate.Count; i++){
 			terrainChunkVisibleLastUpdate[i].SetVisible(false);
 		}
@@ -84,6 +86,13 @@ public class EndlessTerrain : MonoBehaviour{
 
 		PrefabType		prefabType;
 
+		NavMeshSurface		navSurface;
+		int					lastNavmeshLOD = -1;// To avoid rebuilding unnecessarily
+		NavMeshData			navData;
+		NavMeshDataInstance	navDataInstance;
+		bool				navDataAdded;
+		AsyncOperation		navBuildOp;
+
 		public		TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, Material material, PrefabType prefabType){
 			this.detailLevels = detailLevels;
 			this.prefabType = prefabType;
@@ -113,6 +122,9 @@ public class EndlessTerrain : MonoBehaviour{
 			}
 
 			mapGenerator.RequestMapData(position, OnMapDataReceived);
+
+			navSurface = meshObject.AddComponent<NavMeshSurface>();
+			navSurface.collectObjects = CollectObjects.Children;// Collect only this chunk’s children. The collider/mesh you assign below will be included.
 		}
 
 		void		OnMapDataReceived(MapData mapData){
@@ -144,6 +156,38 @@ public class EndlessTerrain : MonoBehaviour{
 			meshFilter.mesh = meshData.CreateMesh();
 		}
 
+		Bounds		GetLocalBounds(){
+			// Local bounds around the chunk’s geometry for collection; make slightly larger to catch borders
+			var	size = new Vector3(chunkSize, 200f, chunkSize);// 200 as an example vertical span
+			return new Bounds(meshObject.transform.position + new Vector3(0, size.y * 0.5f, 0), size);
+		}
+
+		async void	BuildOrUpdateNavmeshAsync(){
+			var	sources = new List<NavMeshBuildSource>();
+			// Collect from render meshes in this chunk only
+			NavMeshBuilder.CollectSources(
+				meshObject.transform,				// Root
+				LayerMask.GetMask("Default"),		// Pick layers you want walkable
+				NavMeshCollectGeometry.RenderMeshes,// Or PhysicsColliders
+				0,									// Default area
+				new List<NavMeshBuildMarkup>(),
+				sources
+			);
+
+			var	settings = NavMesh.GetSettingsByID(0);
+			var	worldBounds = GetLocalBounds();
+
+			if (!navDataAdded){
+				navData = new NavMeshData(settings.agentTypeID);
+				navDataInstance = NavMesh.AddNavMeshData(navData, Vector3.zero, Quaternion.identity);
+				navDataAdded = true;
+			}
+
+			// Async build; you can await in newer Unity with async/Task wrappers, or just store the op.
+			navBuildOp = NavMeshBuilder.UpdateNavMeshDataAsync(navData, settings, sources, worldBounds);
+			// If you have an async context, you can await until isDone; otherwise let it complete in background.
+		}
+
 		public void	UpdateTerrainChunk(){
 			if (!mapDataReceived) return;
 
@@ -167,10 +211,18 @@ public class EndlessTerrain : MonoBehaviour{
 						previousLODIndex = lodIndex;
 						meshFilter.mesh = lodMesh.mesh;
 						meshCollider.sharedMesh = lodMesh.mesh;
+
+						// Build navmesh only for the highest detail LOD you want walkable and only once per LOD switch to avoid hitches.
+						if (lodIndex == 0 && lastNavmeshLOD != lodIndex){
+							BuildOrUpdateNavmeshAsync();
+							lastNavmeshLOD = lodIndex;
+						}
 					} else if (!lodMesh.hasRequestedMesh){
 						lodMesh.RequestMesh(mapData);
 					}
 				}
+
+				// Ensure collision LOD is ready
 				if (lodIndex == 0){
 					if (collisionLODMesh.hasMesh){
 						meshCollider.sharedMesh = collisionLODMesh.mesh;
@@ -187,7 +239,7 @@ public class EndlessTerrain : MonoBehaviour{
 			meshObject.SetActive(visible);
 		}
 
-		public bool IsVisible(){
+		public bool	IsVisible(){
 			return (meshObject.activeSelf);
 		}
 	}
