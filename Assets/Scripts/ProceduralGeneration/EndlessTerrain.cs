@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 using Unity.AI.Navigation;
@@ -59,7 +60,6 @@ public class EndlessTerrain : MonoBehaviour{
 
 				if (terrainChunkDictionary.ContainsKey(viewedChunkCoord)){
 					terrainChunkDictionary[viewedChunkCoord].UpdateTerrainChunk();
-
 				} else {
 					terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, transform, mapMaterial, prefabType));
 				}
@@ -161,7 +161,7 @@ public class EndlessTerrain : MonoBehaviour{
 			return new Bounds(meshObject.transform.position + new Vector3(0, size.y * 0.5f, 0), size);
 		}
 
-		void		BuildOrUpdateNavmeshAsync(){
+		async Task	BuildOrUpdateNavmeshAsync(){
 			var	sources = new List<NavMeshBuildSource>();
 			// Collect from render meshes in this chunk only
 			NavMeshBuilder.CollectSources(
@@ -183,9 +183,9 @@ public class EndlessTerrain : MonoBehaviour{
 				navDataAdded = true;
 			}
 
-			// Async build; you can await in newer Unity with async/Task wrappers, or just store the op.
+			// Start async build and await it
 			navBuildOp = NavMeshBuilder.UpdateNavMeshDataAsync(navData, settings, sources, worldBounds);
-			// If you have an async context, you can await until isDone; otherwise let it complete in background.
+			await navBuildOp;
 		}
 
 		public void	UpdateTerrainChunk(){
@@ -214,7 +214,7 @@ public class EndlessTerrain : MonoBehaviour{
 
 						// Build navmesh only for the highest detail LOD you want walkable and only once per LOD switch to avoid hitches.
 						if (lodIndex == 0 && lastNavmeshLOD != lodIndex){
-							BuildOrUpdateNavmeshAsync();
+							_ = BuildOrUpdateNavmeshAsync();
 							lastNavmeshLOD = lodIndex;
 						}
 					} else if (!lodMesh.hasRequestedMesh){

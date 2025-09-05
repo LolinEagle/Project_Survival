@@ -28,6 +28,10 @@ public class EnemyAi : MonoBehaviour{
 	[SerializeField] private float	wanderingDistanceMin;
 	[SerializeField] private float	wanderingDistanceMax;
 
+	// New: parameters for NavMesh enabling
+	[SerializeField] private float navMeshCheckRadius = 2f;   // how far to search for a valid point
+	[SerializeField] private float navMeshRetryInterval = 0.25f;
+
 	private bool	hasDestination;
 	private bool	isAttacking;
 	private bool	isDead;
@@ -38,9 +42,43 @@ public class EnemyAi : MonoBehaviour{
 		player = playerTransform;
 		playerStats = playerTransform.GetComponent<PlayerStats>();
 		currentHealth = maxHealth;
+
+		// Ensure agent reference and keep it disabled by default if desired
+		if (!agent) agent = GetComponent<NavMeshAgent>();
+		// agent.enabled should be false in the Inspector; if not:
+		// agent.enabled = false;
+	}
+
+	private void	Start(){
+		// Try to enable the agent once it's on a valid NavMesh
+		StartCoroutine(EnsureAgentOnNavMesh());
+	}
+
+	// New: safely enable agent only when a valid NavMesh position is found
+	private IEnumerator EnsureAgentOnNavMesh(){
+		// Keep trying in case the NavMesh is built at runtime (e.g., NavMeshSurface.BuildNavMeshAsync)
+		while (true){
+			if (!agent.enabled){
+				if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, navMeshCheckRadius, NavMesh.AllAreas)){
+					agent.enabled = true;
+					agent.Warp(hit.position); // snap onto the NavMesh to avoid off-mesh placement
+					break;
+				}
+			}else{
+				// Already enabled (e.g., placed correctly in editor)
+				break;
+			}
+			yield return new WaitForSeconds(navMeshRetryInterval);
+		}
 	}
 
 	void			Update(){
+		// Guard: do nothing until the agent is enabled and usable
+		if (!agent || !agent.enabled) {
+			animator.SetFloat("Speed", 0f);
+			return;
+		}
+
 		if (Vector3.Distance(player.position, transform.position) < detectionRadius && !playerStats.isDead){
 			agent.speed = chaseSpeed;
 			Quaternion	rot = Quaternion.LookRotation(player.position - transform.position);
@@ -68,7 +106,7 @@ public class EnemyAi : MonoBehaviour{
 		if (currentHealth <= 0){
 			isDead = true;
 			animator.SetTrigger("Die");
-			agent.enabled = false;
+			if (agent) agent.enabled = false;
 			enabled = false;
 		} else {
 			animator.SetTrigger("GetHit");
@@ -82,8 +120,7 @@ public class EnemyAi : MonoBehaviour{
 		Vector3 nextDestination = transform.position;
 		nextDestination += Random.Range(wanderingDistanceMin, wanderingDistanceMax) * new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f)).normalized;
 
-		NavMeshHit	hit;
-		if (NavMesh.SamplePosition(nextDestination, out hit, wanderingDistanceMax, NavMesh.AllAreas)){
+		if (NavMesh.SamplePosition(nextDestination, out NavMeshHit hit, wanderingDistanceMax, NavMesh.AllAreas)){
 			agent.SetDestination(hit.position);
 		}
 		hasDestination = false;
@@ -91,13 +128,13 @@ public class EnemyAi : MonoBehaviour{
 
 	IEnumerator		AttackPlayer(){
 		isAttacking = true;
-		agent.isStopped = true;
+		if (agent && agent.enabled) agent.isStopped = true;
 		audioSource.Play();
 		animator.SetTrigger("Attack");
 		playerStats.TakeDamage(damageDealt);
 
 		yield return new WaitForSeconds(attackDelay);
-		if (agent.enabled){
+		if (agent && agent.enabled){
 			agent.isStopped = false;
 		}
 		isAttacking = false;
