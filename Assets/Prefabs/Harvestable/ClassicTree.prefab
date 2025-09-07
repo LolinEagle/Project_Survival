@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1347857998406898842}
   - component: {fileID: 7452702959843907217}
   - component: {fileID: 3391326237906631362}
+  - component: {fileID: 1303744496030759128}
   m_Layer: 7
   m_Name: ClassicTree
   m_TagString: Harvestable
@@ -185,3 +186,19 @@ MonoBehaviour:
   tool: 1
   disableKinematicOnHarvest: 1
   destroyDelay: 6
+--- !u!208 &1303744496030759128
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136328}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 1.868, y: 4.761, z: 1.868}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.245, y: 4.761, z: 0.119}
+  m_TimeToStationary: 0.5

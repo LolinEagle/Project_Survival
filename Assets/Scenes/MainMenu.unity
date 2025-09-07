@@ -1621,6 +1621,186 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454491095}
   m_CullTransparentMesh: 1
+--- !u!1 &457892907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 457892911}
+  - component: {fileID: 457892910}
+  - component: {fileID: 457892909}
+  - component: {fileID: 457892908}
+  m_Layer: 0
+  m_Name: MapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &457892908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457892907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8f0653a49b8764d954a0d052e873e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detailLevels:
+  - lod: 0
+    visibleDstThreshold: 128
+    useForCollider: 1
+  viewer: {fileID: 1168455864}
+  mapMaterial: {fileID: 2100000, guid: fe51308d5ea635045a82c1638a1a5116, type: 2}
+  prefabType:
+    item:
+    - prefab: {fileID: 136328, guid: 613b4cc8c589ad8458e792ae21891bef, type: 3}
+      height: 0.8
+      yOffset: 0
+    - prefab: {fileID: 1551547496685501196, guid: 849a5190185df9748a5e6de282d461b4, type: 3}
+      height: 1.1
+      yOffset: 0
+    numberToSpawn: 8
+--- !u!114 &457892909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457892907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e82e8aaef745c9f48a5024a1c006db84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textureRenderer: {fileID: 0}
+  meshFilter: {fileID: 0}
+  meshRenderer: {fileID: 0}
+--- !u!114 &457892910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457892907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d88d5ec6eb7acf45b4bdce0d89e126a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drawMode: 3
+  normalMode: 1
+  useFlatShading: 1
+  editorPreviewLOD: 0
+  noiseScale: 100
+  octaves: 2
+  persistance: 0.25
+  lacunarity: 8
+  seed: 0
+  offset: {x: 0, y: 0}
+  useFalloff: 0
+  meshHeightMultiplier: 64
+  meshHeightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.2
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.025
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7954224
+      value: 0.099810794
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.99495244
+      value: 0.19821778
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.5
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  regions:
+  - name: Forest
+    height: 0
+    colour: {r: 0.07450981, g: 0.42745098, b: 0.08235294, a: 0}
+  - name: Grass
+    height: 0.2
+    colour: {r: 0.25490198, g: 0.59607846, b: 0.039215688, a: 0}
+  - name: Highland
+    height: 0.4
+    colour: {r: 0, g: 0.39215687, b: 0, a: 0}
+  - name: Stone
+    height: 0.8
+    colour: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0}
+  - name: Rocky Snow
+    height: 1.2
+    colour: {r: 0.6666667, g: 0.6666667, b: 0.6666667, a: 0}
+  - name: Snow
+    height: 1.3
+    colour: {r: 1, g: 1, b: 1, a: 0}
+  autoUpdate: 1
+--- !u!4 &457892911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457892907}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &518833020
 GameObject:
   m_ObjectHideFlags: 0
@@ -1769,7 +1949,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -280, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 360, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &556463663
@@ -2705,7 +2885,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 320}
-  m_SizeDelta: {x: 640, y: 120}
+  m_SizeDelta: {x: 960, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1007702351
 MonoBehaviour:
@@ -2740,7 +2920,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Survival
+  m_Text: Survival Fighter
 --- !u!222 &1007702352
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2792,7 +2972,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 325, y: 0}
+  m_AnchoredPosition: {x: 540, y: 0}
   m_SizeDelta: {x: 450, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1013166384
@@ -3101,7 +3281,7 @@ Camera:
   m_GameObject: {fileID: 1168455861}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.16078432, g: 0.7411765, b: 0.75686276, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -3152,7 +3332,7 @@ Transform:
   m_GameObject: {fileID: 1168455861}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5147,3 +5327,4 @@ SceneRoots:
   - {fileID: 1127479028}
   - {fileID: 287168613}
   - {fileID: 129737513}
+  - {fileID: 457892911}

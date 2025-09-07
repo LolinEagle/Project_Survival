@@ -3,6 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 
 public class BuildSystem : MonoBehaviour{
+	[SerializeField] private bool			BuildSystemEnable;
+
 	[Header("Configuration")]
 	[SerializeField] private BuildingGrid	grid;
 	[SerializeField] private Transform		placedStructuresParent;
@@ -144,6 +146,8 @@ public class BuildSystem : MonoBehaviour{
 	}
 
 	private void		Update(){
+		if (!BuildSystemEnable) return;
+
 		if (Input.GetKeyDown(KeyCode.Alpha1)){
 			if (currentStructure.structureType == StructureType.Stairs && systemEnabled){
 				DisableSystem();

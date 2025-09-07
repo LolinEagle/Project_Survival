@@ -848,7 +848,7 @@ MonoBehaviour:
   currentHealth: 0
   walkSpeed: 2
   chaseSpeed: 4
-  detectionRadius: 10
+  detectionRadius: 16
   attackRadius: 3
   attackDelay: 1.133
   damageDealt: 15
@@ -857,6 +857,8 @@ MonoBehaviour:
   wanderingWaitTimeMax: 5
   wanderingDistanceMin: 4
   wanderingDistanceMax: 8
+  navMeshCheckRadius: 2
+  navMeshRetryInterval: 0.25
 --- !u!95 &7042445498101194080
 Animator:
   serializedVersion: 7

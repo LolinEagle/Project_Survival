@@ -104,6 +104,10 @@ PrefabInstance:
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6400000, guid: d01883e876066d54280ca7ceb187f173, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -114,6 +118,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: d01883e876066d54280ca7ceb187f173, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2584816786242937551}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: d01883e876066d54280ca7ceb187f173, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2876128911841694272}
   m_SourcePrefab: {fileID: 100100000, guid: d01883e876066d54280ca7ceb187f173, type: 3}
 --- !u!1 &4872939014525783718 stripped
 GameObject:
@@ -166,6 +173,25 @@ MonoBehaviour:
     dropChance: 50
   - itemData: {fileID: 11400000, guid: 3241b416110c62141813ed3cd30b24d8, type: 2}
     dropChance: 25
+  tool: 0
+  disableKinematicOnHarvest: 0
+  destroyDelay: 0
+--- !u!208 &2876128911841694272
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4872939014525783718}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 1.358, y: 1.577, z: 1.358}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.065000005, y: 1.3160001, z: 0.047000002}
+  m_TimeToStationary: 0.5
 --- !u!4 &4872939014525817478 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: d01883e876066d54280ca7ceb187f173, type: 3}
