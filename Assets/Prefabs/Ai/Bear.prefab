@@ -844,6 +844,7 @@ MonoBehaviour:
   agent: {fileID: 4792512222419343150}
   animator: {fileID: 7042445498101194080}
   audioSource: {fileID: 9136172681221465742}
+  mainAudioSource: {fileID: 6993031028277030195}
   maxHealth: 100
   currentHealth: 0
   walkSpeed: 2

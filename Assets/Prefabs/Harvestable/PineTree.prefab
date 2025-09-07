@@ -11,9 +11,14 @@ GameObject:
   - component: {fileID: 405966}
   - component: {fileID: 3387560}
   - component: {fileID: 2331214}
-  m_Layer: 0
+  - component: {fileID: -5711134453449757006}
+  - component: {fileID: -6296467440112521766}
+  - component: {fileID: -2296341185367347809}
+  - component: {fileID: -7276705037051272703}
+  - component: {fileID: -2420900638821380952}
+  m_Layer: 7
   m_Name: PineTree
-  m_TagString: Untagged
+  m_TagString: Harvestable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,3 +91,116 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &-5711134453449757006
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184622}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.2644415
+  m_Height: 6.0434103
+  m_Direction: 1
+  m_Center: {x: 0.051808596, y: 7.0537677, z: 0.119127035}
+--- !u!136 &-6296467440112521766
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184622}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.18874851
+  m_Height: 4.008156
+  m_Direction: 1
+  m_Center: {x: 0.0689114, y: 2.004078, z: -0.005071074}
+--- !u!54 &-2296341185367347809
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184622}
+  serializedVersion: 4
+  m_Mass: 2500
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &-7276705037051272703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cfdadf358c9c724a835c233c7789eae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  harvestableItem:
+  - itemData: {fileID: 11400000, guid: 65bc1aa820424e542acf81a2b761f935, type: 2}
+    dropChance: 100
+  - itemData: {fileID: 11400000, guid: 65bc1aa820424e542acf81a2b761f935, type: 2}
+    dropChance: 50
+  - itemData: {fileID: 11400000, guid: 65bc1aa820424e542acf81a2b761f935, type: 2}
+    dropChance: 50
+  - itemData: {fileID: 11400000, guid: 112b0d316ffca6b40b7bc994c22fcb19, type: 2}
+    dropChance: 25
+  tool: 1
+  disableKinematicOnHarvest: 1
+  destroyDelay: 6
+--- !u!208 &-2420900638821380952
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184622}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 1.868, y: 4.761, z: 1.868}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.245, y: 4.761, z: 0.119}
+  m_TimeToStationary: 0.5

@@ -6,6 +6,7 @@ public class EnemyAi : MonoBehaviour{
 	[Header("Reference")]
 	[SerializeField] private NavMeshAgent	agent;
 	[SerializeField] private Animator		animator;
+	[SerializeField] private AudioSource	mainAudioSource;
 	[SerializeField] private AudioSource	audioSource;
 
 	private Transform	player;
@@ -28,8 +29,8 @@ public class EnemyAi : MonoBehaviour{
 	[SerializeField] private float	wanderingDistanceMin;
 	[SerializeField] private float	wanderingDistanceMax;
 
-	// New: parameters for NavMesh enabling
-	[SerializeField] private float navMeshCheckRadius = 2f;   // how far to search for a valid point
+	[Header("Nav Mesh parameters")]
+	[SerializeField] private float navMeshCheckRadius = 2f;
 	[SerializeField] private float navMeshRetryInterval = 0.25f;
 
 	private bool	hasDestination;
@@ -107,6 +108,7 @@ public class EnemyAi : MonoBehaviour{
 			isDead = true;
 			animator.SetTrigger("Die");
 			if (agent) agent.enabled = false;
+			mainAudioSource.enabled = false;
 			enabled = false;
 		} else {
 			animator.SetTrigger("GetHit");

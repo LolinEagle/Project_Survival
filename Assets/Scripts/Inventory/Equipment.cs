@@ -32,6 +32,17 @@ public class Equipment : MonoBehaviour{
 	[HideInInspector] public ItemData	equipedFeetItem;
 	[HideInInspector] public ItemData	equipedWeaponItem;
 
+	[Header("Starter Equipment")]
+	[SerializeField] private ItemData	StarterChest;
+	[SerializeField] private ItemData	StarterPants;
+	[SerializeField] private ItemData	StarterBoots;
+
+	void			Start(){
+		EquipAction(StarterChest);
+		EquipAction(StarterPants);
+		EquipAction(StarterBoots);
+	}
+
 	public void		EquipAction(ItemData equipment = null){
 		ItemData				itemToEquip = equipment ? equipment : itemActionSystem.itemCurrentlySelected;
 		EquipmentLibraryItem	equipmentLibraryItem = equipmentLibrary.content.Where(elem => elem.itemData == itemToEquip).First();
@@ -106,7 +117,7 @@ public class Equipment : MonoBehaviour{
 		weaponSlotDesequipButton.gameObject.SetActive(equipedWeaponItem);
 	}
 
-	public void DesequipEquipment(EquipmentType equipmentType) {
+	public void		DesequipEquipment(EquipmentType equipmentType) {
 		if (Inventory.instance.IsFull()) {
 			return;
 		}

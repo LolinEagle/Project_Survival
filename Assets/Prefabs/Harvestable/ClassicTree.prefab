@@ -182,6 +182,8 @@ MonoBehaviour:
   - itemData: {fileID: 11400000, guid: 65bc1aa820424e542acf81a2b761f935, type: 2}
     dropChance: 50
   - itemData: {fileID: 11400000, guid: 65bc1aa820424e542acf81a2b761f935, type: 2}
+    dropChance: 50
+  - itemData: {fileID: 11400000, guid: a82c6589a1d7a47448367857f5165b36, type: 2}
     dropChance: 25
   tool: 1
   disableKinematicOnHarvest: 1
