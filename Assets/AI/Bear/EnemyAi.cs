@@ -100,19 +100,24 @@ public class EnemyAi : MonoBehaviour{
 		animator.SetFloat("Speed", agent.velocity.magnitude);
 	}
 
-	public void		TakeDamage(float damages){
-		if (isDead) return;
+	public bool		TakeDamage(float damages){
+		if (isDead) return false;
 
 		currentHealth -= damages;
+
+		// Check for death
 		if (currentHealth <= 0){
 			isDead = true;
 			animator.SetTrigger("Die");
 			if (agent) agent.enabled = false;
 			mainAudioSource.enabled = false;
 			enabled = false;
-		} else {
-			animator.SetTrigger("GetHit");
+			return true;
 		}
+
+		// Is not dead, play hit reaction
+		animator.SetTrigger("GetHit");
+		return false;
 	}
 
 	IEnumerator		GetNewDestinasion(){

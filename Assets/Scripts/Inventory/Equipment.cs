@@ -38,12 +38,12 @@ public class Equipment : MonoBehaviour{
 	[SerializeField] private ItemData	StarterBoots;
 
 	void			Start(){
-		EquipAction(StarterChest);
-		EquipAction(StarterPants);
-		EquipAction(StarterBoots);
+		EquipAction(StarterChest, false);
+		EquipAction(StarterPants, false);
+		EquipAction(StarterBoots, false);
 	}
 
-	public void		EquipAction(ItemData equipment = null){
+	public void		EquipAction(ItemData equipment = null, bool playAudio = true){
 		ItemData				itemToEquip = equipment ? equipment : itemActionSystem.itemCurrentlySelected;
 		EquipmentLibraryItem	equipmentLibraryItem = equipmentLibrary.content.Where(elem => elem.itemData == itemToEquip).First();
 
@@ -87,7 +87,7 @@ public class Equipment : MonoBehaviour{
 			equipmentLibraryItem.itemPrefab.SetActive(true);
 			playerStats.currentArmorPoints += itemToEquip.armorPoint;
 			Inventory.instance.RemoveItem(itemToEquip);
-			audioSource.PlayOneShot(equipSound);
+			if (playAudio) audioSource.PlayOneShot(equipSound);
 		} else {
 			Debug.LogError("Equipment : " + itemToEquip.name + " non-existent");
 		}

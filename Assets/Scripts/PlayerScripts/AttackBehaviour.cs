@@ -14,6 +14,7 @@ public class AttackBehaviour : MonoBehaviour{
 	[SerializeField] private Vector3	attackOffset;
 
 	private bool	isAttacking;
+	public int		numBeersKilled = 0;
 
 	void		Update(){
 		// Debug.DrawRay(transform.position + attackOffset, transform.forward * attackRange, Color.red);
@@ -30,7 +31,7 @@ public class AttackBehaviour : MonoBehaviour{
 		if (Physics.Raycast(transform.position + attackOffset, transform.forward, out hit, attackRange, layerMask)){
 			if (hit.transform.CompareTag("Ai")){
 				EnemyAi enemy = hit.transform.GetComponent<EnemyAi>();
-				enemy.TakeDamage(equipment.equipedWeaponItem.attackPoints);
+				if (enemy.TakeDamage(equipment.equipedWeaponItem.attackPoints)) numBeersKilled++;
 			}
 		}
 	}
