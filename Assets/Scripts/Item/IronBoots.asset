@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IronBoots
   m_EditorClassIdentifier: 
   itemName: Iron boots
-  description: Armor +5
+  description: Armor +6
   visual: {fileID: 21300000, guid: afd2e8edfd779164c8c91cb789a8e90c, type: 3}
   prefab: {fileID: 5514276167698609827, guid: abcb8cbb7234fef4abdc601c51c90107, type: 3}
   stackable: 0
@@ -21,6 +21,7 @@ MonoBehaviour:
   healthEffect: 0
   hungerEffect: 0
   thirsEffect: 0
-  armorPoint: 5
+  armorPoint: 6
+  attackPoints: 0
   itemType: 1
   equipmentType: 5

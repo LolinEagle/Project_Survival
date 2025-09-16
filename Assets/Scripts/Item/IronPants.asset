@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IronPants
   m_EditorClassIdentifier: 
   itemName: Iron pants
-  description: Armor +5
+  description: Armor +10
   visual: {fileID: 21300000, guid: 869a1d3333f2fad42a630f0686bcd047, type: 3}
   prefab: {fileID: 4488373184789537228, guid: ca51c42ccfca3d34d8349105e0a7315c, type: 3}
   stackable: 0
@@ -21,6 +21,7 @@ MonoBehaviour:
   healthEffect: 0
   hungerEffect: 0
   thirsEffect: 0
-  armorPoint: 5
+  armorPoint: 10
+  attackPoints: 0
   itemType: 1
   equipmentType: 4

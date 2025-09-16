@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IronHelmet
   m_EditorClassIdentifier: 
   itemName: Iron helmet
-  description: Armor +5
+  description: Armor +7
   visual: {fileID: 21300000, guid: 358541a3db89a6f45956a5d4726d7312, type: 3}
   prefab: {fileID: 7267187338700054948, guid: 6865a6dece9101c458426d564f9dc7af, type: 3}
   stackable: 0
@@ -21,6 +21,7 @@ MonoBehaviour:
   healthEffect: 0
   hungerEffect: 0
   thirsEffect: 0
-  armorPoint: 5
+  armorPoint: 7
+  attackPoints: 0
   itemType: 1
   equipmentType: 1

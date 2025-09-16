@@ -843,8 +843,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 4792512222419343150}
   animator: {fileID: 7042445498101194080}
-  audioSource: {fileID: 9136172681221465742}
   mainAudioSource: {fileID: 6993031028277030195}
+  audioSource: {fileID: 9136172681221465742}
   maxHealth: 100
   currentHealth: 0
   walkSpeed: 2
@@ -852,7 +852,7 @@ MonoBehaviour:
   detectionRadius: 16
   attackRadius: 3
   attackDelay: 1.133
-  damageDealt: 15
+  damageDealt: 20
   rotationSpeed: 4
   wanderingWaitTimeMin: 2
   wanderingWaitTimeMax: 5

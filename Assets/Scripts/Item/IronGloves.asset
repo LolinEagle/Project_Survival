@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IronGloves
   m_EditorClassIdentifier: 
   itemName: Iron gloves
-  description: Armor +5
+  description: Armor +3
   visual: {fileID: 21300000, guid: 3f3f612e2e18b4742ba62c1d294abdc6, type: 3}
   prefab: {fileID: 5799688667625662889, guid: b66ce5487ad507641ad67f2b8f25648c, type: 3}
   stackable: 0
@@ -21,6 +21,7 @@ MonoBehaviour:
   healthEffect: 0
   hungerEffect: 0
   thirsEffect: 0
-  armorPoint: 5
+  armorPoint: 3
+  attackPoints: 0
   itemType: 1
   equipmentType: 3
