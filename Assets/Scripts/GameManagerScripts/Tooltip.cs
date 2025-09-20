@@ -2,20 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Tooltip : MonoBehaviour{
-	[SerializeField]
-	private Text			headerField;
+	[SerializeField] private Text			headerField;
+	[SerializeField] private Text			conntentField;
+	[SerializeField] private LayoutElement	layoutElement;
+	[SerializeField] private int			maxCharacter;
 
-	[SerializeField]
-	private Text			conntentField;
-
-	[SerializeField]
-	private LayoutElement	layoutElement;
-
-	[SerializeField]
-	private int				maxCharacter;
-
-	public void SetText(string header, string content = "")
-	{
+	public void SetText(string header, string content = ""){
 		headerField.text = header;
 		conntentField.text = content;
 
@@ -25,8 +17,7 @@ public class Tooltip : MonoBehaviour{
 		layoutElement.enabled = (headerLength > maxCharacter || conntentLength > maxCharacter) ? true : false;
 	}
 
-	private void Update()
-	{
+	private void Update(){
 		Vector2	mousePosition = Input.mousePosition;
 		transform.position = mousePosition;
 	}

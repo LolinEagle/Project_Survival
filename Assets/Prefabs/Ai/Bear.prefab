@@ -450,6 +450,37 @@ Transform:
   - {fileID: 7490081098187239978}
   m_Father: {fileID: 4069440631034831775}
   m_LocalEulerAnglesHint: {x: -5.1178575, y: -1.6888584, z: 140.28075}
+--- !u!1 &2429780914488782257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6356340688995043451}
+  m_Layer: 0
+  m_Name: DropPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6356340688995043451
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2429780914488782257}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 806986665173119675}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2520406659533932769
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,6 +836,7 @@ Transform:
   m_Children:
   - {fileID: 6477666706253555725}
   - {fileID: 5430013764711338003}
+  - {fileID: 6356340688995043451}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &4792512222419343150
@@ -845,6 +877,14 @@ MonoBehaviour:
   animator: {fileID: 7042445498101194080}
   mainAudioSource: {fileID: 6993031028277030195}
   audioSource: {fileID: 9136172681221465742}
+  dropPoint: {fileID: 6356340688995043451}
+  lootTable:
+  - itemData: {fileID: 11400000, guid: b22381e6d73b96c4fae39e0b78ab2111, type: 2}
+    dropChance: 33
+  - itemData: {fileID: 11400000, guid: 513759b92bcd5f94db92a18e0a45fd39, type: 2}
+    dropChance: 33
+  - itemData: {fileID: 11400000, guid: 77d01d6d44ef59b4da125cacd9d58c2b, type: 2}
+    dropChance: 100
   maxHealth: 100
   currentHealth: 0
   walkSpeed: 2

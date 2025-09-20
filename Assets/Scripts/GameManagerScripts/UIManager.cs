@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour{
 	private float	defaultHorizontalAimingSpeed;
 	private float	defaultVerticalAimingSpeed;
 
-	[HideInInspector] public bool isAPanelOpened;
+	[HideInInspector] public bool	isAPanelOpened;
 
 	void Start(){
 		defaultHorizontalAimingSpeed = playerCameraScript.horizontalAimingSpeed;

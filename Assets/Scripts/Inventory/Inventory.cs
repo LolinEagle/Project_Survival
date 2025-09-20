@@ -3,17 +3,19 @@ using System.Linq;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour{
-	[SerializeField] private Equipment			equipment;
-	[SerializeField] private ItemActionSystem	itemActionSystem;
-	[SerializeField] private CraftingSystem		craftingSystem;
-	[SerializeField] private BuildSystem		buildSystem;
+	[SerializeField] private Equipment				equipment;
+	[SerializeField] private ItemActionSystem		itemActionSystem;
+	[SerializeField] private CraftingSystem			craftingSystem;
+	[SerializeField] private BuildSystem			buildSystem;
 
 	[Header("Inventory Panel References")]
 	[SerializeField] private List<ItemInInventory>	content = new List<ItemInInventory>();
 	[SerializeField] private GameObject				inventoryPanel;
 	[SerializeField] private Transform				inventorySlotParent;
 
-	private const uint		InventorySize = 40;
+	[Header("Inventory Settings")]
+	[SerializeField] private uint					InventorySize;
+
 	private bool			isOpen = false;
 	public static Inventory	instance;
 	public Sprite			emptySlotVisual;

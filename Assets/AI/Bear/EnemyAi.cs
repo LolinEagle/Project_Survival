@@ -8,9 +8,8 @@ public class EnemyAi : MonoBehaviour{
 	[SerializeField] private Animator		animator;
 	[SerializeField] private AudioSource	mainAudioSource;
 	[SerializeField] private AudioSource	audioSource;
-
-	private Transform	player;
-	private PlayerStats	playerStats;
+	[SerializeField] private Transform		dropPoint;
+	[SerializeField] private Ressource[]	lootTable;
 
 	[Header("Stats")]
 	[SerializeField] private float	maxHealth;
@@ -30,14 +29,16 @@ public class EnemyAi : MonoBehaviour{
 	[SerializeField] private float	wanderingDistanceMax;
 
 	[Header("Nav Mesh parameters")]
-	[SerializeField] private float navMeshCheckRadius = 2f;
-	[SerializeField] private float navMeshRetryInterval = 0.25f;
+	[SerializeField] private float	navMeshCheckRadius = 2f;
+	[SerializeField] private float	navMeshRetryInterval = 0.25f;
 
-	private bool	hasDestination;
-	private bool	isAttacking;
-	private bool	isDead;
+	private Transform	player;
+	private PlayerStats	playerStats;
+	private bool		hasDestination;
+	private bool		isAttacking;
+	private bool		isDead;
 
-	private void	Awake(){
+	private void		Awake(){
 		Transform	playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
 		player = playerTransform;
@@ -50,13 +51,12 @@ public class EnemyAi : MonoBehaviour{
 		// agent.enabled = false;
 	}
 
-	private void	Start(){
+	private void		Start(){
 		// Try to enable the agent once it's on a valid NavMesh
 		StartCoroutine(EnsureAgentOnNavMesh());
 	}
 
-	// New: safely enable agent only when a valid NavMesh position is found
-	private IEnumerator EnsureAgentOnNavMesh(){
+	private IEnumerator	EnsureAgentOnNavMesh(){
 		// Keep trying in case the NavMesh is built at runtime (e.g., NavMeshSurface.BuildNavMeshAsync)
 		while (true){
 			if (!agent.enabled){
@@ -73,7 +73,7 @@ public class EnemyAi : MonoBehaviour{
 		}
 	}
 
-	void			Update(){
+	void				Update(){
 		// Guard: do nothing until the agent is enabled and usable
 		if (!agent || !agent.enabled) {
 			animator.SetFloat("Speed", 0f);
@@ -100,18 +100,32 @@ public class EnemyAi : MonoBehaviour{
 		animator.SetFloat("Speed", agent.velocity.magnitude);
 	}
 
-	public bool		TakeDamage(float damages){
+	void				OnDeath(){
+		isDead = true;
+		animator.SetTrigger("Die");
+
+		// Disable the agent and this script
+		if (agent) agent.enabled = false;
+		mainAudioSource.enabled = false;
+		enabled = false;
+
+		// Drop loot
+		for (int i = 0; i < lootTable.Length; i++){
+			Ressource	ressource = lootTable[i];
+			if (Random.Range(1, 101) <= ressource.dropChance){
+				GameObject	instantiated = Instantiate(ressource.itemData.prefab);
+				instantiated.transform.position = dropPoint.position;
+			}
+		}
+	}
+
+	public bool			TakeDamage(float damages){
 		if (isDead) return false;
 
-		currentHealth -= damages;
-
 		// Check for death
+		currentHealth -= damages;
 		if (currentHealth <= 0){
-			isDead = true;
-			animator.SetTrigger("Die");
-			if (agent) agent.enabled = false;
-			mainAudioSource.enabled = false;
-			enabled = false;
+			OnDeath();
 			return true;
 		}
 
@@ -120,7 +134,7 @@ public class EnemyAi : MonoBehaviour{
 		return false;
 	}
 
-	IEnumerator		GetNewDestinasion(){
+	IEnumerator			GetNewDestinasion(){
 		hasDestination = true;
 		yield return new WaitForSeconds(Random.Range(wanderingWaitTimeMin, wanderingWaitTimeMax));
 
@@ -133,7 +147,7 @@ public class EnemyAi : MonoBehaviour{
 		hasDestination = false;
 	}
 
-	IEnumerator		AttackPlayer(){
+	IEnumerator			AttackPlayer(){
 		isAttacking = true;
 		if (agent && agent.enabled) agent.isStopped = true;
 		audioSource.Play();
@@ -147,7 +161,7 @@ public class EnemyAi : MonoBehaviour{
 		isAttacking = false;
 	}
 
-	private void	OnDrawGizmos(){
+	private void		OnDrawGizmos(){
 		Gizmos.color = Color.yellow;
 		Gizmos.DrawWireSphere(transform.position, detectionRadius);
 

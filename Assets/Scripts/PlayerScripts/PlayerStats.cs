@@ -10,9 +10,9 @@ public class PlayerStats : MonoBehaviour{
 	[SerializeField] private ThirdPersonOrbitCamBasic	cameraScript;
 	
 	[Header("Player Stats")]
-	[HideInInspector] public float	currentHealth;
-	[HideInInspector] public float	currentHunger;
-	[HideInInspector] public float	currentThirs;
+	public float					currentHealth;
+	public float					currentHunger;
+	public float					currentThirs;
 	[SerializeField] private float	maxHealth = 100f;
 	[SerializeField] private float	maxHunger = 100f;
 	[SerializeField] private float	maxThirs = 100f;
@@ -28,13 +28,13 @@ public class PlayerStats : MonoBehaviour{
 
 	[HideInInspector] public bool	isDead = false;
 
-	void Awake(){
+	void			Awake(){
 		currentHealth = maxHealth;
 		currentHunger = maxHunger;
 		currentThirs = maxThirs;
 	}
 
-	void Update(){
+	void			Update(){
 		UpdateBarFill();
 	}
 
@@ -65,7 +65,7 @@ public class PlayerStats : MonoBehaviour{
 	}
 
 	public void		UpdateHealthBarFill(){
-		BarFillHealth.fillAmount = currentHealth / maxHealth;
+		BarFillHealth.fillAmount = Mathf.Ceil(currentHealth) / maxHealth;
 	}
 
 	void			UpdateBarFill(){
@@ -73,8 +73,8 @@ public class PlayerStats : MonoBehaviour{
 		currentThirs -= thirsDecreaseRate * Time.deltaTime;
 		currentHunger = currentHunger < 0 ? 0 : currentHunger;
 		currentThirs = currentThirs < 0 ? 0 : currentThirs;
-		BarFillHunger.fillAmount = currentHunger / maxHunger;
-		BarFillThirs.fillAmount = currentThirs / maxThirs;
+		BarFillHunger.fillAmount = Mathf.Ceil(currentHunger) / maxHunger;
+		BarFillThirs.fillAmount = Mathf.Ceil(currentThirs) / maxThirs;
 
 		if (currentHunger <= 0 || currentThirs <= 0){
 			TakeDamage((currentHunger <= 0 && currentThirs <= 0 ? healthDecreaseRate * 2 : healthDecreaseRate), true);

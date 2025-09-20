@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 using System.Linq;
 
 public class Objectives : MonoBehaviour{
@@ -7,7 +7,7 @@ public class Objectives : MonoBehaviour{
 	private int					totalItemQuantity;
 	private ItemInInventory[]	itemInInventory;
 
-	[SerializeField] private Text				objectiveText;
+	[SerializeField] private TMP_Text 			objectiveText;
 	[SerializeField] private Equipment			equipment;
 	[SerializeField] private AttackBehaviour	attackBehaviour;
 
