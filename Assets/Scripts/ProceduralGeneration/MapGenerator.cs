@@ -21,6 +21,7 @@ public class MapGenerator : MonoBehaviour{
 	[Range(0, 1)] public float	persistance;
 	public float				lacunarity;
 	public int					seed;
+	public bool					randomSeed;
 	public Vector2				offset;
 	public bool					useFalloff;
 	public float				meshHeightMultiplier;
@@ -35,12 +36,13 @@ public class MapGenerator : MonoBehaviour{
 	Queue<MapThreadInfo<MapData>>	mapDataThreadInfoQueue = new Queue<MapThreadInfo<MapData>>();
 	Queue<MapThreadInfo<MeshData>>	meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
 
-	private void		Awake() {
+	private void		Awake(){
 		falloffMap = FalloffGenerator.GenerateFalloffMap(mapChunkSize);
+		if (randomSeed) seed = UnityEngine.Random.Range(-2147483648, 2147483647);
 	}
 
 	public static int	mapChunkSize{
-		get {
+		get{
 			if (instance == null){
 				instance = FindAnyObjectByType<MapGenerator>();
 			}
@@ -146,7 +148,7 @@ public class MapGenerator : MonoBehaviour{
 		falloffMap = FalloffGenerator.GenerateFalloffMap(mapChunkSize);
 	}
 
-	struct MapThreadInfo<T> {
+	struct MapThreadInfo<T>{
 		public readonly Action<T>	callback;
 		public readonly T			parameter;
 

@@ -10,6 +10,9 @@ public class SaveSystem : MonoBehaviour{
 	[SerializeField] private MainMenu		mainMenu;
 	[SerializeField] private PauseMenu		pauseMenu;
 
+	[Header("SaveSystem Settings")]
+	[SerializeField] private bool			SaveSystemActive;
+
 	private string	filePath;
 
 	void	Start(){
@@ -27,6 +30,8 @@ public class SaveSystem : MonoBehaviour{
 	}
 
 	public void	SaveData(){
+		if (!SaveSystemActive) return;
+
 		// Save all the data
 		SavedData	savedData = new SavedData{
 			playerPosition = playerTransform.position,
@@ -55,6 +60,8 @@ public class SaveSystem : MonoBehaviour{
 	}
 
 	public void    LoadData(){
+		if (!SaveSystemActive) return;
+
 		// Recover all the data
 		filePath = Application.persistentDataPath + "/SavedData.json";
 		string		jsonData = System.IO.File.ReadAllText(filePath);

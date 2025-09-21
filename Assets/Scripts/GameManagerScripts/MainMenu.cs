@@ -29,7 +29,7 @@ public class MainMenu : MonoBehaviour{
 		soundSlider.value = soundValue;
 
 		// Load
-		bool saveFileExists = System.IO.File.Exists(Application.persistentDataPath + "/SavedData.json");
+		bool	saveFileExists = System.IO.File.Exists(Application.persistentDataPath + "/SavedData.json");
 		loadGameButton.interactable = saveFileExists;
 		clearSaveButton.interactable = saveFileExists;
 
@@ -72,15 +72,15 @@ public class MainMenu : MonoBehaviour{
 	}
 
 	void		OnEnable(){
-		hud.SetActive(false);
-		inventoryPanel.SetActive(false);
-		craftingPanel.SetActive(false);
-		tooltip.SetActive(false);
-		itemActionPanel.SetActive(false);
+		if (hud != null) hud.SetActive(false);
+		if (inventoryPanel != null) inventoryPanel.SetActive(false);
+		if (craftingPanel != null) craftingPanel.SetActive(false);
+		if (tooltip != null) tooltip.SetActive(false);
+		if (itemActionPanel != null) itemActionPanel.SetActive(false);
 	}
 
 	void		OnDisable(){
-		hud.SetActive(true);
+		if (hud != null) hud.SetActive(true);
 	}
 
 	public void	LoadGame(){

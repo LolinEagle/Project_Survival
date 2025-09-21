@@ -6,11 +6,11 @@ public class AimBehaviourBasic : GenericBehaviour{
 	public string		aimButton = "Aim", shoulderButton = "Aim Shoulder";	// Default aim and switch shoulders buttons.
 	public Texture2D	crosshair;											// Crosshair texture.
 	public float		aimTurnSmoothing = 0.15f;							// Speed of turn response when aiming to match camera facing.
-	public Vector3		aimPivotOffset = new Vector3(0.5f, 1.2f,  0f);		// Offset to repoint the camera when aiming.
-	public Vector3		aimCamOffset   = new Vector3(0f, 0.4f, -0.7f);		// Offset to relocate the camera when aiming.
+	public Vector3		aimPivotOffset = new Vector3(0.5f, 1.2f, 0f);		// Offset to repoint the camera when aiming.
+	public Vector3		aimCamOffset = new Vector3(0f, 0.4f, -0.7f);		// Offset to relocate the camera when aiming.
 
 	private int aimBool;	// Animator variable related to aiming.
-	private bool aim;       // Boolean to determine whether or not the player is aiming.
+	private bool aim;		// Boolean to determine whether or not the player is aiming.
 
 	[SerializeField] private PlayerStats	playerStats;
 
@@ -96,9 +96,9 @@ public class AimBehaviourBasic : GenericBehaviour{
 		forward = forward.normalized;
 
 		// Always rotates the player according to the camera horizontal rotation in aim mode.
-		Quaternion targetRotation =  Quaternion.Euler(0, behaviourManager.GetCamScript.GetH, 0);
+		Quaternion	targetRotation = Quaternion.Euler(0, behaviourManager.GetCamScript.GetH, 0);
 
-		float minSpeed = Quaternion.Angle(transform.rotation, targetRotation) * aimTurnSmoothing;
+		float	minSpeed = Quaternion.Angle(transform.rotation, targetRotation) * aimTurnSmoothing;
 
 		// Rotate entire player to face camera.
 		behaviourManager.SetLastDirection(forward);
@@ -108,7 +108,7 @@ public class AimBehaviourBasic : GenericBehaviour{
 	// Draw the crosshair when aiming.
 	void	OnGUI (){
 		if (crosshair){
-			float mag = behaviourManager.GetCamScript.GetCurrentPivotMagnitude(aimPivotOffset);
+			float	 mag = behaviourManager.GetCamScript.GetCurrentPivotMagnitude(aimPivotOffset);
 			if (mag < 0.05f)
 				GUI.DrawTexture(new Rect(Screen.width / 2 - (crosshair.width * 0.5f),
 										 Screen.height / 2 - (crosshair.height * 0.5f),

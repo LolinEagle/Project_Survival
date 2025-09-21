@@ -179,6 +179,7 @@ MonoBehaviour:
   persistance: 0.25
   lacunarity: 8
   seed: 0
+  randomSeed: 0
   offset: {x: 0, y: 0}
   useFalloff: 0
   meshHeightMultiplier: 64
@@ -4432,7 +4433,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 737377354}
   m_OnClick:
     m_PersistentCalls:
@@ -5360,7 +5361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11406,6 +11407,7 @@ MonoBehaviour:
   buildSystem: {fileID: 681814335}
   mainMenu: {fileID: 1236379032}
   pauseMenu: {fileID: 1711369699}
+  SaveSystemActive: 0
 --- !u!114 &1711369699
 MonoBehaviour:
   m_ObjectHideFlags: 0

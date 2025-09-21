@@ -2109,6 +2109,11 @@ MonoBehaviour:
   soundSlider: {fileID: 182433}
   optionsPanel: {fileID: 1013166382}
   fullScreenToggle: {fileID: 1471928673}
+  hud: {fileID: 0}
+  inventoryPanel: {fileID: 0}
+  craftingPanel: {fileID: 0}
+  tooltip: {fileID: 0}
+  itemActionPanel: {fileID: 0}
 --- !u!114 &556463664
 MonoBehaviour:
   m_ObjectHideFlags: 0
