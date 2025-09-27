@@ -7,8 +7,8 @@ using Unity.AI.Navigation;
 public class EndlessTerrain : MonoBehaviour{
 	const float				scale = 1f;
 
-	const float				viwerMoveThresholdForChunkUpdate = 25f;
-	const float				sqrViewerMoveThresholdForChunkUpdate = viwerMoveThresholdForChunkUpdate * viwerMoveThresholdForChunkUpdate;
+	const float				viewerMoveThresholdForChunkUpdate = 25f;
+	const float				sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
 
 	public LODInfo[]		detailLevels;
 	public static float		maxViewDist;
@@ -16,7 +16,7 @@ public class EndlessTerrain : MonoBehaviour{
 	public Transform		viewer;
 	public Material			mapMaterial;
 	public static Vector2	viewerPos;
-	Vector2					oldViewerPos;
+	Vector2					oldViewerPos = new Vector2(float.MinValue, float.MinValue);
 	static MapGenerator		mapGenerator;
 	static int				chunkSize;
 	int						chunksVisibleInViewDist;
@@ -51,8 +51,8 @@ public class EndlessTerrain : MonoBehaviour{
 		}
 		terrainChunkVisibleLastUpdate.Clear();
 
-		int	currentChunkCoordX = Mathf.RoundToInt(viewerPos.x / chunkSize);
-		int	currentChunkCoordY = Mathf.RoundToInt(viewerPos.y / chunkSize);
+		int	currentChunkCoordX = Mathf.FloorToInt(viewerPos.x / chunkSize);
+		int	currentChunkCoordY = Mathf.FloorToInt(viewerPos.y / chunkSize);
 
 		for (int yOffset = -chunksVisibleInViewDist; yOffset <= chunksVisibleInViewDist; yOffset++){
 			for (int xOffset = -chunksVisibleInViewDist; xOffset <= chunksVisibleInViewDist; xOffset++){
@@ -98,9 +98,8 @@ public class EndlessTerrain : MonoBehaviour{
 			this.prefabType = prefabType;
 
 			position = coord * size;
-			bounds = new Bounds(position, Vector2.one * size);
-
-			Vector3	positionV3 = new Vector3(position.x, 0, position.y);
+			Vector3	positionV3 = new Vector3(position.x, 0f, position.y);
+			bounds = new Bounds(positionV3, new Vector3(size, 200f, size));
 
 			meshObject = new GameObject("Terrain Chunk");
 			meshRenderer = meshObject.AddComponent<MeshRenderer>();
@@ -175,7 +174,7 @@ public class EndlessTerrain : MonoBehaviour{
 
 			var	settings = NavMesh.GetSettingsByID(0);
 			settings.agentSlope = 90f;
-			var	worldBounds = GetLocalBounds();
+			var	worldBounds = bounds;
 
 			if (!navDataAdded){
 				navData = new NavMeshData(settings.agentTypeID);
@@ -191,7 +190,8 @@ public class EndlessTerrain : MonoBehaviour{
 		public void	UpdateTerrainChunk(){
 			if (!mapDataReceived) return;
 
-			float	viewerDstFromNearestEdge = Mathf.Sqrt(bounds.SqrDistance(viewerPos));
+			var		viewerPosV3 = new Vector3(EndlessTerrain.viewerPos.x, 0f, EndlessTerrain.viewerPos.y);
+			float	viewerDstFromNearestEdge = Mathf.Sqrt(bounds.SqrDistance(viewerPosV3));
 			bool	visible = viewerDstFromNearestEdge <= maxViewDist;
 
 			if (visible){
@@ -210,7 +210,7 @@ public class EndlessTerrain : MonoBehaviour{
 					if (lodMesh.hasMesh){
 						previousLODIndex = lodIndex;
 						meshFilter.mesh = lodMesh.mesh;
-						meshCollider.sharedMesh = lodMesh.mesh;
+						meshCollider.sharedMesh = (collisionLODMesh != null && collisionLODMesh.hasMesh) ? collisionLODMesh.mesh : null;
 
 						// Build navmesh only for the highest detail LOD you want walkable and only once per LOD switch to avoid hitches.
 						if (lodIndex == 0 && lastNavmeshLOD != lodIndex){
@@ -235,8 +235,16 @@ public class EndlessTerrain : MonoBehaviour{
 			SetVisible(visible);
 		}
 
+		public void	OnDestroy(){
+			if (navDataAdded){
+				navDataInstance.Remove();
+				navDataAdded = false;
+			}
+		}
+
 		public void	SetVisible(bool visible){
 			if (meshObject) meshObject.SetActive(visible);
+			if (!visible) lastNavmeshLOD = -1;// Force rebuild next time it becomes visible at LOD0
 		}
 
 		public bool	IsVisible(){

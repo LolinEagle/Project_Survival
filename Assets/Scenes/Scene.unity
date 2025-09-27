@@ -11357,15 +11357,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableRecipes:
-  - {fileID: 11400000, guid: 849e11dd5b80b534ba4236a4873953ff, type: 2}
+  - {fileID: 11400000, guid: 073783fd03f914145b9e581766b4aa42, type: 2}
+  - {fileID: 11400000, guid: 220564eaed73f7c469d9a20474f38b3c, type: 2}
   - {fileID: 11400000, guid: 234648a222400d34d9531df75f476f69, type: 2}
   - {fileID: 11400000, guid: e8c8bc908574a104f9fa5bf3bf3c4ff3, type: 2}
-  - {fileID: 11400000, guid: 220564eaed73f7c469d9a20474f38b3c, type: 2}
   - {fileID: 11400000, guid: 3a7a8d6988cdd4b44ae1785dcb02f4f8, type: 2}
-  - {fileID: 11400000, guid: 073783fd03f914145b9e581766b4aa42, type: 2}
-  - {fileID: 11400000, guid: 82aa6e98c0bb1ac4099b6d958d560cee, type: 2}
+  - {fileID: 11400000, guid: 849e11dd5b80b534ba4236a4873953ff, type: 2}
   - {fileID: 11400000, guid: ada82390c1fa7d24b89516aec444b4fc, type: 2}
   - {fileID: 11400000, guid: a56faf2ee2304b94ea281f90cf99bc43, type: 2}
+  - {fileID: 11400000, guid: 82aa6e98c0bb1ac4099b6d958d560cee, type: 2}
   recipeUiPrefab: {fileID: 5861832518744955876, guid: 9bca97f549115b24abfbcd4fc8eb8a78, type: 3}
   recipeParent: {fileID: 1264972133}
   openCraftPanelInput: 99
