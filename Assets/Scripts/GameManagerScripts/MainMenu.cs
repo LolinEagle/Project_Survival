@@ -22,6 +22,7 @@ public class MainMenu : MonoBehaviour{
 	[SerializeField] private GameObject	itemActionPanel;
 
 	public static bool	loadSavedData;
+	private List<int>	resolutionIndex = new List<int>();
 
 	void		Start(){
 		// Volume
@@ -49,18 +50,21 @@ public class MainMenu : MonoBehaviour{
 		qualitysDropdown.value = currentQualityIndex;
 		qualitysDropdown.RefreshShownValue();
 
-
 		// Resolutions
-		Resolution[]	resolutions = Screen.resolutions;
+		Resolution[]	res = Screen.resolutions;
 		List<string>	resolutionOptrion = new List<string>();
 		int				currentResolutionIndex = 0;
 
 		resolutionsDropdown.ClearOptions();
-		for (int i = 0; i < resolutions.Length ; i++){
-			string	option = resolutions[i].width + "x" + resolutions[i].height + " " + resolutions[i].refreshRateRatio + "Hz";
+		for (int i = 0; i < res.Length ; i++){
+			if (res[i].refreshRateRatio.value != Screen.currentResolution.refreshRateRatio.value || res[i].width < 1366 || res[i].height < 768)
+				continue;
+
+			string	option = res[i].width + " x " + res[i].height;// + " @ " + Mathf.RoundToInt((float)res[i].refreshRateRatio.value) + "Hz";
 
 			resolutionOptrion.Add(option);
-			if (resolutions[i].width == Screen.width && resolutions[i].height == Screen.height){
+			resolutionIndex.Add(i);
+			if (res[i].width == Screen.width && res[i].height == Screen.height){
 				currentResolutionIndex = i;
 			}
 		}
@@ -107,8 +111,9 @@ public class MainMenu : MonoBehaviour{
 		QualitySettings.SetQualityLevel(qualityIndex);
 	}
 
-	public void	SetResolution(int resolutionIndex){
-		Resolution	resolution = Screen.resolutions[resolutionIndex];
+	public void	SetResolution(int i){
+		Resolution	resolution = Screen.resolutions[resolutionIndex[i]];
+
 		Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
 	}
 
